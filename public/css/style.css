@@ -1,0 +1,237 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #8b919e;
+}
+
+footer {
+  background-color: #539cc1;
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+  width: 100%
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background-color: #539cc1;
+  color: #000000;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  height: 60px; 
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px; 
+  align-items: center; 
+}
+
+nav ul li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+h1, h2, h3 {
+  font-family: 'Segoe UI', sans-serif;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 40px;
+}
+
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+button {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1f6391;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+ul li {
+  background-color: #f0f4f8;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ul li img {
+  height: 80px;
+  border-radius: 6px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+th {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+}
+
+.breadcrumb {
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  text-decoration: underline;
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: #0077cc; 
+}
+
+.breadcrumb span {
+  color: #000000;
+}
+
+/* Right-side elements (Login/Register, User Profile, Cart) */
+.auth-buttons, .user-button, .cart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-buttons a {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.auth-buttons a:hover {
+  background-color: #45a049;
+}
+
+.user-button a {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.user-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.cart {
+  cursor: pointer;
+}
+
+.cart-icon {
+  width: 30px;
+  height: auto;
+}
+
+#category-dropdown {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.hide-header {
+  top: -100px; 
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.login-btn, .register-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #45a049;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.login-btn, .register-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #45a049;
+}
+
+.user-button a {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.user-button img {
+  width: 30px;
+  height: 30px;
+}
+
+

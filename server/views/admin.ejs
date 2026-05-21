@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li>
+                    <% if (user) { %>
+                        <div class="user-button">
+                            <a href="/user-portal">
+                                <img src="/uploads/icons/user.png" alt="User Portal">
+                            </a>
+                        </div>
+                    <% } else { %>
+                        <div class="auth-buttons">
+                            <a href="/login" class="login-btn">Login</a>
+                            <a href="/register" class="register-btn">Register</a>
+                        </div>
+                    <% } %>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Admin Panel</h1>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <p id="modalMessageText"></p>
+        </div>
+    </div>
+
+    <h2>Add Product</h2>
+    <form id="addProductForm" enctype="multipart/form-data" method="POST" action="/admin/add-product">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    
+        <label for="name">Product Name</label>
+        <input type="text" id="name" name="name" required><br>
+    
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" step="0.01" required><br>
+    
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea><br>
+    
+        <label for="catid">Category</label>
+        <select id="catid" name="catid" required>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.catid %>"><%= category.name %></option>
+            <% }) %>
+        </select><br>
+    
+        <label for="image">Product Image (Max: 10MB)</label>
+        <input type="file" id="image" name="image" accept="image/*" required><br>
+    
+        <button type="submit">Add Product</button>
+    </form>   
+    
+    <h2>Add Category</h2>
+    <form id="addCategoryForm">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
+        <label for="name">Category Name</label>
+        <input type="text" id="categoryName" name="name" required><br>
+
+        <button type="submit">Add Category</button>
+    </form>
+
+    <h3>Existing Products</h3>
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <%= product.name %> - $<%= product.price %>
+                <img src="<%= product.image %>" alt="<%= product.name %>" width="100"><br>
+                <form action="/admin/delete-product" method="POST" style="display:inline;">
+                    <input type="hidden" name="productId" value="<%= product.pid %>">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <h3>Orders</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Username</th>
+          <th>Salt</th>
+          <th>Digest</th>
+          <th>Currency</th>
+          <th>Total</th>
+          <th>Created At</th>
+          <th>Merchant</th>
+          <th>PayPal Fields</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order.order_id %></td>
+            <td><%= order.username %></td>
+            <td><%= order.salt %></td>
+            <td style="word-break: break-all;"><%= order.digest %></td>
+            <td><%= order.currency %></td>
+            <td>$<%= order.total.toFixed(2) %></td>
+            <td><%= order.created_at.toISOString().slice(0, 19).replace('T', ' ') %></td>
+            <td><%= order.merchant %></td>
+            <td>
+              <% try {
+                const fields = JSON.parse(order.paypal_fields || '[]');
+                const grouped = {};
+                fields.forEach(f => {
+                  const m = f.name.match(/_(\d+)$/);
+                  if (m) {
+                    const idx = m[1];
+                    if (!grouped[idx]) grouped[idx] = {};
+                    const key = f.name.replace(/_\d+$/, '');
+                    grouped[idx][key] = f.value;
+                  }
+                });
+              %>
+              <ul>
+                <% Object.keys(grouped).forEach(i => { %>
+                  <li><%= grouped[i].item_name %> - Qty: <%= grouped[i].quantity %>, $<%= grouped[i].amount %></li>
+                <% }) %>
+              </ul>
+              <% } catch (e) { %>
+                <em>Invalid JSON</em>
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= product.name %> - Product Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/inpg-cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="breadcrumb">
+                    <a href="/">Home</a>
+                    <% if (selectedCategory) { %>
+                      &gt; <a href="/?catid=<%= selectedCategory.catid %>"><%= selectedCategory.name %></a>
+                    <% } %>
+                    &gt; <span><%= product.name %></span>
+                  </li>                                           
+            </ul>
+                <div class="cart" id="cart-button">
+                    <img class="cart-icon" src="/uploads/icons/cart.png" alt="Cart Icon" />
+                </div>
+                <div id="cart-dropdown" class="dropdown-content">
+                    <h3>Shopping Cart</h3>
+                    <ul id="cart-list">
+                    </ul>
+                    <p>Total: $<span id="total-price">0.00</span></p>
+                    <button id="checkout-btn" onclick="window.location.href='/cart'">Checkout</button>
+                </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="product-container">
+            <div class="product-image">
+                <img src="<%= product.image %>" alt="<%= product.name %>" class="product-img">
+            </div>
+
+            <div class="product-info">
+                <h1><%= product.name %></h1>
+                <p><%= product.description %></p>
+                <p class="product-price">Price: $<%= product.price %></p>
+                
+                <div class="quantity-controls">
+                    <button class="decrement">-</button>
+                    <input type="number" class="quantity-input" value="1" min="1" id="quantity" data-pid="<%= product.pid %>">
+                    <button class="increment">+</button>
+                </div>
+
+                <button class="add-to-cart" data-pid="<%= product.pid %>" data-name="<%= product.name %>" data-price="<%= product.price %>">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="/">Back to Home</a>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

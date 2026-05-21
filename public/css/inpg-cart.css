@@ -1,0 +1,135 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}  
+
+.shopping-cart {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#checkout-btn {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#checkout-btn:hover {
+    background-color: #f44336;
+}
+
+.cart {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 30px; 
+    height: auto;
+    cursor: pointer;
+}
+
+.cart-icon {
+    width: 30px; 
+    height: auto;
+}
+
+
+#cart-dropdown {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+    width: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.cart:hover #cart-dropdown {
+    display: block;
+}
+
+/* List of Cart Items */
+#cart-list {
+    display: table;
+    width: max-content;
+    border-collapse: collapse;
+}
+
+#cart-list li {
+    display: table-row;
+}
+
+#cart-list li span,
+#cart-list li a,
+#cart-list li div,
+#cart-list li button {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+#cart-list li a {
+    max-width: 10ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+    color: black;
+}
+
+#cart-list li a:hover {
+    color: blue;
+}
+
+#cart-list li .product-price {
+    width: 90px;
+    text-align: right;
+    font-family: monospace;
+}
+
+#cart-list li .quantity-controls {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#cart-list li input.quantity-input {
+    width: 50px;
+    text-align: center;
+}
+
+#cart-list li button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#cart-list li button.remove-item {
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#cart-list li button.remove-item:hover {
+    background-color: darkred;
+}
+
+#cart-button {
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}

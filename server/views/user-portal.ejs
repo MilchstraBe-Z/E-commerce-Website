@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Portal, <%= user.email %></h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Your Account Details</h2>
+        <p>Email: <%= user.email %></p>
+        <p>Admin: <%= user.admin ? 'Yes' : 'No' %></p>
+        
+        <h2>Change Password</h2>
+        <form id="changePasswordForm" method="POST" action="/change-password">
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+            <button type="submit">Change Password</button>
+        </form>
+
+
+        <h2>Your Last 5 Orders</h2>
+        <% if (orders.length === 0) { %>
+            <p>You have no recent orders.</p>
+        <% } else { %>
+            <% orders.forEach(order => { %>
+                <div class="order-summary">
+                    <h3>Order ID: <%= order.order_id %></h3>
+                    <p>Merchant: <%= order.merchant %></p>
+                    <p>Created At: <%= order.created_at.toLocaleString() %></p>
+                    <p>Total: $<%= order.total.toFixed(2) %> <%= order.currency %></p>
+                    <% let fields = {}; %>
+                    <% if (Array.isArray(order.paypalFields)) {
+                        order.paypalFields.forEach(f => {
+                            const m = f.name.match(/_(\d+)$/);
+                            if (m) {
+                                const idx = m[1];
+                                if (!fields[idx]) fields[idx] = {};
+                                // correctly derive "item_name", "quantity", "amount"
+                                const base = f.name.replace(/_\d+$/, '');
+                                fields[idx][base] = f.value;
+                            }
+                        });
+                    } %>
+
+                    <% if (Object.keys(fields).length > 0) { %>
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% Object.keys(fields).forEach(i => { %>
+                        <tr>
+                            <td><%= i %></td>
+                            <td><%= fields[i].item_name %></td>
+                            <td><%= fields[i].quantity %></td>
+                            <td>$<%= Number(fields[i].amount).toFixed(2) %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    </table>
+                    <% } %>                                  
+
+                </div>
+            <% }); %>
+        <% } %>
+    </main>
+    <footer>
+        <p>&copy; ZHY Shopping Site</p>
+    </footer>
+</body>
+</html>

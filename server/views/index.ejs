@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/inpg-cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="breadcrumb">
+                    <a href="/">Home</a>
+                    <% if (selectedCategory) { %>
+                        &gt; <a href="/?catid=<%= selectedCategory.catid %>"><%= selectedCategory.name %></a>
+                    <% } %>
+                </li> 
+                <li>
+                    <select id="category-dropdown">
+                        <option value="all">All Categories</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.catid %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+                </li>
+                <li>
+                    <% if (user) { %>
+                        <div class="user-button">
+                            <a href="/user-portal">
+                                <img src="/uploads/icons/user.png" alt="User Portal">
+                            </a>
+                        </div>
+                    <% } else { %>
+                        <div class="auth-buttons">
+                            <a href="/login" class="login-btn">Login</a>
+                            <a href="/register" class="register-btn">Register</a>
+                        </div>
+                    <% } %>
+                </li>                               
+            </ul>
+            <div class="cart" id="cart-button">
+                <img class="cart-icon" src="/uploads/icons/cart.png" alt="Cart Icon" />
+            </div>
+            <div id="cart-dropdown" class="dropdown-content">
+                <h3>Shopping Cart</h3>
+                <ul id="cart-list">
+                </ul>
+                <p>Total: $<span id="total-price">0.00</span></p>
+                <button id="checkout-btn" onclick="window.location.href='/cart'">Checkout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Products</h2>
+        <section id="product-list" class="product-list">
+            <% products.forEach(product => { %>
+                <div class="product-block">
+                    <a href="/product/<%= product.pid %>">
+                        <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+                        <p class="product-name"><%= product.name %></p>
+                    </a>
+                    <p class="product-price">$<%= product.price %></p>
+                    <div class="quantity-controls">
+                        <button class="decrement">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" data-pid="<%= product.pid %>">
+                        <button class="increment">+</button>
+                    </div>
+                    <button class="add-to-cart" data-pid="<%= product.pid %>" data-name="<%= product.name %>" data-price="<%= product.price %>">Add to Cart</button>
+                </div>
+            <% }) %>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; ZHY Shopping Site</p>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
