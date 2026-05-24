@@ -1,6 +1,6 @@
-# IEMS5718 E-commerce Website
+# E-commerce Website
 
-A Node.js and MySQL shopping website built for IEMS5718 Web Programming and Internet Security. The project implements a product catalogue, category browsing, product detail pages, a client-side shopping cart, account login/registration, an admin panel, and a PayPal sandbox checkout flow with order verification.
+A Node.js and MySQL shopping website built for Web Programming and Internet Security. The project implements a product catalogue, category browsing, product detail pages, a client-side shopping cart, account login/registration, an admin panel, and a PayPal sandbox checkout flow with order verification.
 
 The implementation follows the project phases described in `P1_2A.pdf`, `P2B_3.pdf`, `P4.pdf`, `P5.pdf`, and `P6.pdf`. The submitted project summary is documented in `Final Report for IEMS 5718.pdf`.
 
